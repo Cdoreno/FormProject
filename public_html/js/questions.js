@@ -44,7 +44,7 @@ window.onload = function () {
             tratarXML(this);
         }
     };
-    xhttp.open("GET", 'xml/question.xml', true);
+    xhttp.open("GET", '../xml/question.xml', true);
     xhttp.send();
 };
 
