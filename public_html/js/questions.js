@@ -129,11 +129,11 @@ function tratarXML(datos) {
         radio2.appendChild(label);
         radio2.appendChild(salto);
     }
-    respRadio2 = parseInt(xml.getelementsByTagName("answer")[7].innerHTML);
+    respRadio2 = parseInt(xml.getElementsByTagName("answer")[7].innerHTML);
     //
 //Tipo CheckBox
     //Pregunta 1
-    var check = document.getElementById('p08');
+    var check = document.getElementById('p09');
     var h3 = document.createElement("h3");
     h3.innerHTML = xml.getElementsByTagName("text")[8].childNodes[0].nodeValue;
     check.appendChild(h3);
@@ -150,6 +150,25 @@ function tratarXML(datos) {
         check.appendChild(input);
         check.appendChild(label);
         check.appendChild(salto);
+    }
+    //Pregunta 2
+    var check2 = document.getElementById('p10');
+    var h3 = document.createElement("h3");
+    h3.innerHTML = xml.getElementsByTagName("text")[9].childNodes[0].nodeValue;
+    check2.appendChild(h3);
+    var numMaxOpt = xml.getElementById("10").getElementsByTagName("option").length;
+    for (var i = 0; i < numMaxOpt; i++) {
+        var input = document.createElement("input");
+        var label = document.createElement("label");
+        var salto = document.createElement("br");
+        label.innerHTML = xml.getElementById("10").getElementsByTagName('option')[i].childNodes[0].nodeValue;
+        label.setAttribute("for", "color_" + i);
+        input.type = "checkbox";
+        input.name = "color";
+        input.id = "color_" + i;
+        check2.appendChild(input);
+        check2.appendChild(label);
+        check2.appendChild(salto);
     }
 }
 //Tratar datos del XML fi
