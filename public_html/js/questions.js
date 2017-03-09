@@ -4,14 +4,16 @@ var respTexto = null;
 var respTexto2 = null;
 var respSelect = null;
 var respSelect2 = null;
-var respMulti = null;
-var respMulti2 = null;
-var respRadio = null;
-var respRadio2 = null;
+
+var respMulti = [];
+var respMulti2 = [];
+var respRadio = [];
+var respRadio2 = [];
 var respCheck = [];
 var respCheck2 = [];
 var nota = null;
-
+var numMaxOptMulti = null;
+var numMaxOptMulti2 = null;
 // Variables fi
 
 
@@ -23,10 +25,14 @@ window.onload = function () {
         iniciar();
         correcTexto();
         correcTexto2();
-//        correcSelect();
-//        correcSelect2();
-//        correcRadio();
-//        correcRadio2();
+        correcSelect();
+        correcSelect2();
+        correcMulti();
+        correcMulti2();
+        correcRadio();
+        correcRadio2();
+        correcCheck();
+        correcCheck2();
         presentarNota();
         // Aqui se colocaran los metodos de las correciones
         return false;
@@ -82,21 +88,27 @@ function tratarXML(datos) {
     //Pregunta 1
     var textoMulti = xml.getElementsByTagName("text")[4].innerHTML;
     var opcionMulti = [];
-    var numMaxOpt = xml.getElementById("5").getElementsByTagName("option").length;
-    for (var i = 0; i < numMaxOpt; i++) {
+    numMaxOptMulti = xml.getElementById("5").getElementsByTagName("option").length;
+    for (var i = 0; i < numMaxOptMulti; i++) {
         opcionMulti[i] = xml.getElementById("5").getElementsByTagName("option")[i].innerHTML;
     }
     mostrarPregunta5(textoMulti, opcionMulti);
-    respMulti = parseInt(xml.getElementsByTagName("answer")[4].innerHTML);
+    var numResp3 = xml.getElementById("5").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp3; i++) {
+        respMulti[i] = xml.getElementById("5").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
+    }
     //Pregunta 2
     var textoMulti2 = xml.getElementsByTagName("text")[5].innerHTML;
     var opcionMulti2 = [];
-    var numMaxOpt2 = xml.getElementById("6").getElementsByTagName("option").length;
-    for (var i = 0; i < numMaxOpt2; i++) {
+    numMaxOptMulti2 = xml.getElementById("6").getElementsByTagName("option").length;
+    for (var i = 0; i < numMaxOptMulti2; i++) {
         opcionMulti2[i] = xml.getElementById("6").getElementsByTagName("option")[i].innerHTML;
     }
     mostrarPregunta6(textoMulti2, opcionMulti2);
-    respMulti2 = parseInt(xml.getElementsByTagName("answer")[5].innerHTML);
+    var numResp4 = xml.getElementById("6").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp4; i++) {
+        respMulti2[i] = xml.getElementById("6").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
+    }
     //
 //Tipo Radio
     //Pregunta 1
@@ -107,18 +119,22 @@ function tratarXML(datos) {
     var numMaxOpt = xml.getElementById("7").getElementsByTagName("option").length;
     for (var i = 0; i < numMaxOpt; i++) {
         var input = document.createElement("input");
-        var label = document.createElement("radio");
+        var label = document.createElement("label");
         var salto = document.createElement("br");
         label.innerHTML = xml.getElementById("7").getElementsByTagName('option')[i].childNodes[0].nodeValue;
-        label.setAttribute("for", "color_" + i);
+        label.setAttribute("for", "radio_" + i);
         input.type = "radio";
-        input.name = "color";
-        input.id = "color_" + i;
+        input.name = "radio1";
+        input.id = "radio_" + i;
         radio.appendChild(input);
         radio.appendChild(label);
         radio.appendChild(salto);
     }
-    respRadio = parseInt(xml.getElementsByTagName("answer")[6].innerHTML);
+
+    var numResp5 = xml.getElementById("7").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp5; i++) {
+        respRadio[i] = xml.getElementById("7").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
+    }
     //
     //Pregunta 2
     var radio2 = document.getElementById('p08');
@@ -128,18 +144,22 @@ function tratarXML(datos) {
     var numMaxOpt = xml.getElementById("8").getElementsByTagName("option").length;
     for (var i = 0; i < numMaxOpt; i++) {
         var input = document.createElement("input");
-        var label = document.createElement("radio");
+        var label = document.createElement("label");
         var salto = document.createElement("br");
         label.innerHTML = xml.getElementById("8").getElementsByTagName('option')[i].childNodes[0].nodeValue;
-        label.setAttribute("for", "color_" + i);
+        label.setAttribute("for", "radio2_" + i);
         input.type = "radio";
-        input.name = "color";
-        input.id = "color_" + i;
+        input.name = "radio2";
+        input.id = "radio2_" + i;
         radio2.appendChild(input);
         radio2.appendChild(label);
         radio2.appendChild(salto);
     }
-    respRadio2 = parseInt(xml.getElementsByTagName("answer")[7].innerHTML);
+
+    var numResp6 = xml.getElementById("8").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp6; i++) {
+        respRadio2[i] = xml.getElementById("8").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
+    }
     //
 //Tipo CheckBox
     //Pregunta 1
@@ -153,10 +173,10 @@ function tratarXML(datos) {
         var label = document.createElement("label");
         var salto = document.createElement("br");
         label.innerHTML = xml.getElementById("9").getElementsByTagName('option')[i].childNodes[0].nodeValue;
-        label.setAttribute("for", "color_" + i);
+        label.setAttribute("for", "checkbox1_" + i);
         input.type = "checkbox";
-        input.name = "color";
-        input.id = "color_" + i;
+        input.name = "checkbox1";
+        input.id = "checkbox1_" + i;
         check.appendChild(input);
         check.appendChild(label);
         check.appendChild(salto);
@@ -176,10 +196,10 @@ function tratarXML(datos) {
         var label = document.createElement("label");
         var salto = document.createElement("br");
         label.innerHTML = xml.getElementById("10").getElementsByTagName('option')[i].childNodes[0].nodeValue;
-        label.setAttribute("for", "color_" + i);
+        label.setAttribute("for", "checkbox2_" + i);
         input.type = "checkbox";
-        input.name = "color";
-        input.id = "color_" + i;
+        input.name = "checkbox2";
+        input.id = "checkbox2_" + i;
         check2.appendChild(input);
         check2.appendChild(label);
         check2.appendChild(salto);
@@ -250,7 +270,7 @@ function mostrarPregunta6(textoMulti2, opcionMulti2) {
 //Correccion de preguntas
 function correcTexto() {
     var resp = formElement.elements[0].value;
-    if (resp.equals(respTexto)) {
+    if (resp == respTexto) {
         darRespuesta("Perfecto.");
         nota += 1;
     } else {
@@ -259,7 +279,7 @@ function correcTexto() {
 }
 function correcTexto2() {
     var resp = formElement.elements[1].value;
-    if (resp.equals(respTexto2)) {
+    if (resp == respTexto2) {
         darRespuesta("Perfecto.");
         nota += 1;
     } else {
@@ -284,12 +304,133 @@ function correcSelect2() {
         darRespuesta("Te has equivocado.");
     }
 }
-function darRespuesta(texto){
- var resDiv=document.getElementById('resultadosDiv');
- var p = document.createElement("p");
- var node = document.createTextNode(texto);
- p.appendChild(node);
- resDiv.appendChild(p);
+function correcMulti() {
+    var f = formElement;
+    var escorrecta = [];
+    darRespuesta("Pregunta número: " + "5");
+    for (i = 0; i < f.r05.length; i++) {
+        if (f.r05[i].selected) {
+            escorrecta[i] = false;
+            for (j = 0; j < respMulti.length; j++) {
+                if (i == respMulti[j])
+                    escorrecta[i] = true;
+            }
+            if (escorrecta[i]) {
+                nota += 1.0;
+                darRespuesta("Respuesta número " + i + " correcta");
+            } else {
+                nota -= 1.0 / numMaxOptMulti;
+                darRespuesta("Respuesta número " + i + " incorrecta");
+            }
+        }
+    }
+}
+function correcMulti2() {
+    var f = formElement;
+    var escorrecta = [];
+    darRespuesta("Pregunta número: " + "6");
+    for (i = 0; i < f.r06.length; i++) {
+        if (f.r06[i].selected) {
+            escorrecta[i] = false;
+            for (j = 0; j < respMulti2.length; j++) {
+                if (i == respMulti2[j])
+                    escorrecta[i] = true;
+            }
+            if (escorrecta[i]) {
+                nota += 1.0;
+                darRespuesta("Respuesta número " + i + " correcta");
+            } else {
+                nota -= 1.0 / numMaxOptMulti2;
+                darRespuesta("Respuesta número " + i + " incorrecta");
+            }
+        }
+    }
+}
+function correcRadio() {
+    var f = formElement;
+    var escorrecta = [];
+    for (i = 0; i < f.radio1.length; i++) {
+        if (f.radio1[i].checked) {
+            escorrecta[i] = false;
+            for (j = 0; j < respRadio.length; j++) {
+                if (i == respRadio[j])
+                    escorrecta[i] = true;
+            }
+
+            if (escorrecta[i]) {
+                nota += 1.0;
+                darRespuesta("Correcta");
+            } else {
+                darRespuesta("Incorrecta");
+            }
+        }
+    }
+}
+function correcRadio2() {
+    var f = formElement;
+    var escorrecta = [];
+    for (i = 0; i < f.radio2.length; i++) {
+        if (f.radio2[i].checked) {
+            escorrecta[i] = false;
+            for (j = 0; j < respRadio2.length; j++) {
+                if (i == respRadio2[j])
+                    escorrecta[i] = true;
+            }
+            if (escorrecta[i]) {
+                nota += 1.0;
+                darRespuesta("Correcta");
+            } else {
+                darRespuesta("Incorrecta");
+            }
+        }
+    }
+}
+function correcCheck() {
+    var f = formElement;
+    var escorrecta = [];
+    for (i = 0; i < f.checkbox1.length; i++) {
+        if (f.checkbox1[i].checked) {
+            escorrecta[i] = false;
+            for (j = 0; j < respCheck.length; j++) {
+                if (i == respCheck[j])
+                    escorrecta[i] = true;
+            }
+            if (escorrecta[i]) {
+                nota += 0.5;
+                darRespuesta("Correcta");
+            } else {
+                nota -= 1.0 / numMaxOptMulti;
+                darRespuesta("Incorrecta");
+            }
+        }
+    }
+}
+function correcCheck2() {
+    var f = formElement;
+    var escorrecta = [];
+    for (i = 0; i < f.checkbox2.length; i++) {
+        if (f.checkbox2[i].checked) {
+            escorrecta[i] = false;
+            for (j = 0; j < respCheck2.length; j++) {
+                if (i == respCheck2[j])
+                    escorrecta[i] = true;
+            }
+            if (escorrecta[i]) {
+                nota += 0.5;
+                darRespuesta("Correcta");
+            } else {
+                nota -= 1.0 / numMaxOptMulti;
+                darRespuesta("Incorrecta");
+            }
+        }
+    }
+}
+function darRespuesta(texto) {
+    var resDiv = document.getElementById('resultadosDiv');
+    var p = document.createElement("p");
+    var node = document.createTextNode(texto);
+    p.appendChild(node);
+    resDiv.appendChild(p);
 }
 
 function iniciar() {
