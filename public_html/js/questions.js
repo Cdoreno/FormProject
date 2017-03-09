@@ -4,6 +4,7 @@ var respTexto = null;
 var respTexto2 = null;
 var respSelect = null;
 var respSelect2 = null;
+
 var respMulti = [];
 var respMulti2 = [];
 var respRadio = [];
@@ -13,7 +14,6 @@ var respCheck2 = [];
 var nota = null;
 var numMaxOptMulti = null;
 var numMaxOptMulti2 = null;
-
 // Variables fi
 
 
@@ -130,6 +130,7 @@ function tratarXML(datos) {
         radio.appendChild(label);
         radio.appendChild(salto);
     }
+
     var numResp5 = xml.getElementById("7").getElementsByTagName("answer").length;
     for (var i = 0; i < numResp5; i++) {
         respRadio[i] = xml.getElementById("7").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
@@ -154,6 +155,7 @@ function tratarXML(datos) {
         radio2.appendChild(label);
         radio2.appendChild(salto);
     }
+
     var numResp6 = xml.getElementById("8").getElementsByTagName("answer").length;
     for (var i = 0; i < numResp6; i++) {
         respRadio2[i] = xml.getElementById("8").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
