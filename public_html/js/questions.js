@@ -10,6 +10,7 @@ var respRadio = null;
 var respRadio2 = null;
 var respCheck = [];
 var respCheck2 = [];
+var nota = null;
 
 // Variables fi
 
@@ -19,9 +20,17 @@ window.onload = function () {
     //Corrección al apretar, el botón "Realizar Corrección"
     formElement = document.getElementById('cuestionario');
     formElement.onsubmit = function () {
+        iniciar();
+        correcTexto();
+        correcTexto2();
+//        correcSelect();
+//        correcSelect2();
+//        correcRadio();
+//        correcRadio2();
+        presentarNota();
         // Aqui se colocaran los metodos de las correciones
         return false;
-    };
+    }
 
     //Leer XML 
     var xhttp = new XMLHttpRequest();
@@ -110,6 +119,7 @@ function tratarXML(datos) {
         radio.appendChild(salto);
     }
     respRadio = parseInt(xml.getElementsByTagName("answer")[6].innerHTML);
+    //
     //Pregunta 2
     var radio2 = document.getElementById('p08');
     var h3 = document.createElement("h3");
@@ -151,6 +161,10 @@ function tratarXML(datos) {
         check.appendChild(label);
         check.appendChild(salto);
     }
+    var numResp = xml.getElementById("9").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp; i++) {
+        respCheck[i] = xml.getElementById("9").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
+    }
     //Pregunta 2
     var check2 = document.getElementById('p10');
     var h3 = document.createElement("h3");
@@ -169,6 +183,10 @@ function tratarXML(datos) {
         check2.appendChild(input);
         check2.appendChild(label);
         check2.appendChild(salto);
+    }
+    var numResp2 = xml.getElementById("10").getElementsByTagName("answer").length;
+    for (var i = 0; i < numResp2; i++) {
+        respCheck2[i] = xml.getElementById("10").getElementsByTagName("answer")[i].childNodes[0].nodeValue;
     }
 }
 //Tratar datos del XML fi
@@ -228,3 +246,56 @@ function mostrarPregunta6(textoMulti2, opcionMulti2) {
     }
 }
 //Mostrar preguntas fi
+//
+//Correccion de preguntas
+function correcTexto() {
+    var resp = formElement.elements[0].value;
+    if (resp.equals(respTexto)) {
+        darRespuesta("Perfecto.");
+        nota += 1;
+    } else {
+        darRespuesta("Te has equivocado.");
+    }
+}
+function correcTexto2() {
+    var resp = formElement.elements[1].value;
+    if (resp.equals(respTexto2)) {
+        darRespuesta("Perfecto.");
+        nota += 1;
+    } else {
+        darRespuesta("Te has equivocado.");
+    }
+}
+function correcSelect() {
+    var resp = formElement.elements[2].value;
+    if (resp == respSelect) {
+        darRespuesta("Perfecto.");
+        nota += 1;
+    } else {
+        darRespuesta("Te has equivocado.");
+    }
+}
+function correcSelect2() {
+    var resp = formElement.elements[3].value;
+    if (resp == respSelect2) {
+        darRespuesta("Perfecto.");
+        nota += 1;
+    } else {
+        darRespuesta("Te has equivocado.");
+    }
+}
+function darRespuesta(texto){
+ var resDiv=document.getElementById('resultadosDiv');
+ var p = document.createElement("p");
+ var node = document.createTextNode(texto);
+ p.appendChild(node);
+ resDiv.appendChild(p);
+}
+
+function iniciar() {
+    document.getElementById('resultadosDiv').innerHTML = "";
+    nota = 0.0;
+}
+function presentarNota() {
+    darRespuesta("Ha sacado un " + nota + " sobre 10.");
+}
