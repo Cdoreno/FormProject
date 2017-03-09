@@ -66,7 +66,7 @@
     </question>
     <question id='9'>
         <type>checkbox</type>
-        <text>De los siguientes lenguajes cuál es de marca?</text>
+        <text>De los siguientes lenguajes ¿cuál es de marca?</text>
         <option>Java</option>
         <option>Python</option>
         <option>HTML</option>
