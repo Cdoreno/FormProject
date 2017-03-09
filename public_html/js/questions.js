@@ -4,10 +4,6 @@ var respTexto = null;
 var respTexto2 = null;
 var respSelect = null;
 var respSelect2 = null;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 var respMulti = [];
 var respMulti2 = [];
 var respRadio = [];
@@ -48,7 +44,7 @@ window.onload = function () {
             tratarXML(this);
         }
     };
-    xhttp.open("GET", '../xml/question.xml', true);
+    xhttp.open("GET", 'xml/question.xml', true);
     xhttp.send();
 };
 
