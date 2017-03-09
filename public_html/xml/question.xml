@@ -17,7 +17,7 @@
         <option>El idioma pez es muy complejo.</option>
         <option>Porque la marea está baja.</option>
         <option>Porque se le mojan los libros.</option>
-        <answer>3</answer>
+        <answer>4</answer>
     </question>
     <question id='4'>
         <type>select</type>
@@ -26,7 +26,7 @@
         <option>Porque quiere hablar.</option>
         <option>Porque no sabe guiñar un ojo.</option>
         <option>No la mueve, es la gravedad.</option>
-        <answer>0</answer>
+        <answer>1</answer>
     </question>
     <question id='5'>
         <type>multiple</type>
@@ -66,7 +66,7 @@
     </question>
     <question id='9'>
         <type>checkbox</type>
-        <text>De los siguientes lenguajes cuál es de marca?</text>
+        <text>De los siguientes lenguajes ¿cuál es de marca?</text>
         <option>Java</option>
         <option>Python</option>
         <option>HTML</option>
